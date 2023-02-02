@@ -1,0 +1,13 @@
+<span *ngFor="let line of gallows; let i = index">
+<br/>{{line}}
+</span>
+<p>Your word to guess: 
+    <span *ngFor="let letter of lettersToGuess; let i = index">
+        {{letter}} 
+    </span>
+</p>
+<p>Wrong guesses: 
+    <span *ngFor="let letter of wrongGuesses; let i = index">
+        {{letter}} 
+    </span>
+</p>

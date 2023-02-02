@@ -1,0 +1,9 @@
+<section id="keyboard">
+    <div *ngIf="gameOver" class="game-over">GAME OVER</div>
+    <div class="row" *ngFor="let row of keyboard">
+        <button *ngFor="let key of row" (click)="keyClick(key)" [disabled]="checkIfGuessed(key)">{{key}}</button>
+    </div>
+</section>
+
+
+
