@@ -7,7 +7,13 @@ import { GameService } from '../game.service';
   styleUrls: ['./gallows.component.css']
 })
 export class GallowsComponent implements OnInit {
-gallows = ["+---+","|   |","|   ","|  ","|  ","|    ","======"];
+lineOne = ["╔","═","═","═","╗"];
+lineTwo = ["║","W","W","║"];
+lineThree = ["║","W","W","O"];
+lineFour = ["║","W","w","/","|","\\"];
+lineFive = ["║","W","W","/","\\"];
+lineSix = ["╩","═","═","═","═","═"]
+gallows = [this.lineOne,this.lineTwo,this.lineThree,this.lineFour,this.lineFive,this.lineSix];
 lettersToGuess: string[] = [];
 wrongGuesses: string[] = [];
 

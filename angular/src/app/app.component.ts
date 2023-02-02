@@ -11,13 +11,17 @@ export class AppComponent implements OnInit {
   title = 'hangman-app';
   word = '';
   loading = false;
+  gameOver = false;
 
   constructor(private gameService: GameService, private wordService: WordService) {}
 
   ngOnInit() {
     this.gameService.wordUpdated.subscribe(word => {
       this.word = word;
-    })
+    });
+    this.gameService.gameOverStatus.subscribe(state => {
+      this.gameOver = state;
+    });
   }
 
   startNewGame() {

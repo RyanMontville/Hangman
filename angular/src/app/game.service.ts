@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
-import { WordService } from "./word.service";
 
 @Injectable()
 export class GameService {
@@ -11,6 +10,8 @@ export class GameService {
     private wrongGuesses: string[] = [];
     wrongGuessesUpdated = new Subject<string[]>();
 
+    rightGuesses: string[] = [];
+
     private lettersToGuess: string[] = [];
     lettersUpdated = new Subject<string[]>();
 
@@ -18,14 +19,14 @@ export class GameService {
     gameOverStatus = new BehaviorSubject<boolean>(false);
 
     lettersLeftToGuess = new BehaviorSubject<number>(0);
-    
-    constructor(private http: HttpClient) {}
+
+    constructor(private http: HttpClient) { }
 
     getAnyWord() {
-        this.http.get<string>('https://random-word-api.herokuapp.com/word').subscribe(word =>{
+        this.http.get<string>('https://random-word-api.herokuapp.com/word').subscribe(word => {
             this.wordToGuess = word[0];
             this.lettersToGuess = [];
-            for(let i=0;i<word[0].length;i++){
+            for (let i = 0; i < word[0].length; i++) {
                 this.lettersToGuess.push('_');
             }
             this.wordUpdated.next(this.wordToGuess);
@@ -36,11 +37,11 @@ export class GameService {
     }
 
     getWordWithLengthN(num: number) {
-        this.http.get<string>(`https://random-word-api.herokuapp.com/word?length=${num}`).subscribe(word =>{
+        this.http.get<string>(`https://random-word-api.herokuapp.com/word?length=${num}`).subscribe(word => {
             this.wordToGuess = word[0];
             this.wordUpdated.next(this.wordToGuess);
             this.lettersToGuess = [];
-            for(let i=0;i<word[0].length;i++){
+            for (let i = 0; i < word[0].length; i++) {
                 this.lettersToGuess.push('_');
             }
             this.lettersUpdated.next(this.lettersToGuess.slice());
@@ -49,57 +50,41 @@ export class GameService {
     }
 
     nextGuess(letter: string) {
-        if(this.guessesLeft > 1) {
-            let goodGuess = false;
-            for (let i=0; i<this.wordToGuess.length;i++){
-                let currentLetter = this.wordToGuess.charAt(i);
-                if(currentLetter.toUpperCase() === letter) {
-                    if(!this.lettersToGuess.includes(letter)){
-                        this.lettersToGuess[i] = letter;
-                        this.lettersLeftToGuess.next(this.lettersLeftToGuess.getValue()-1);
-                    if(this.lettersLeftToGuess.getValue() === 0) {
-                        this.gameOverStatus.next(true);
-                    }
-                    }
-                    goodGuess = true;
-                }
+        let isCorrect = false;
+        for (let i = 0; i < this.wordToGuess.length; i++) {
+            if (letter.charAt(0) === this.wordToGuess.charAt(i).toUpperCase()) {
+                this.lettersToGuess[i] = letter;
+                this.lettersLeftToGuess.next(this.lettersLeftToGuess.getValue() - 1);
+                this.lettersUpdated.next(this.lettersToGuess);
+                isCorrect = true;
             }
-            if(!goodGuess) {
-                this.addLetterToWrongGuesses(letter);
-            }
-            this.lettersUpdated.next(this.lettersToGuess);
-        } else if(this.guessesLeft === 1) {
-            let goodGuess = false;
-            for (let i=0; i<this.wordToGuess.length;i++){
-                let currentLetter = this.wordToGuess.charAt(i);
-                if(currentLetter.toUpperCase() === letter) {
-                    if(!this.lettersToGuess.includes(letter)){
-                        this.lettersToGuess[i] = letter;
-                        this.lettersLeftToGuess.next(this.lettersLeftToGuess.getValue()-1);
-                        if(this.lettersLeftToGuess.getValue() === 0) {
-                            this.gameOverStatus.next(true);
-                        }
-                    }
-                    goodGuess = true;
-                }
-            }
-            if(!goodGuess) {
-                this.addLetterToWrongGuesses(letter);
+        }
+        if (this.lettersLeftToGuess.getValue() === 0 || !this.lettersToGuess.includes('_')) {
+            this.gameOverStatus.next(true);
+        }
+        if (!isCorrect) {
+            if (this.guessesLeft > 1) {
+                this.wrongGuesses.push(letter);
+                this.wrongGuessesUpdated.next(this.wrongGuesses);
+                this.guessesLeft--;
+            } else if (this.guessesLeft === 1) {
+                this.wrongGuesses.push(letter);
+                this.wrongGuessesUpdated.next(this.wrongGuesses);
+                this.guessesLeft--;
                 this.gameOverStatus.next(true);
             }
-            this.lettersUpdated.next(this.lettersToGuess);
         }
     }
 
     addLetterToWrongGuesses(letter: string) {
-        if(this.guessesLeft > 1) {
-            if(!this.wrongGuesses.includes(letter)){
+        if (this.guessesLeft > 1) {
+            if (!this.wrongGuesses.includes(letter)) {
                 this.wrongGuesses.push(letter);
                 this.guessesLeft--;
             }
-            
+
         } else if (this.guessesLeft === 1) {
-            if(!this.wrongGuesses.includes(letter)){
+            if (!this.wrongGuesses.includes(letter)) {
                 this.wrongGuesses.push(letter);
                 this.gameOverStatus.next(true);
             }
@@ -109,6 +94,8 @@ export class GameService {
 
     startNewGame() {
         this.gameOverStatus.next(false);
+        this.wordToGuess = '';
+        this.wordUpdated.next(this.wordToGuess);
         this.wrongGuesses = [];
         this.wrongGuessesUpdated.next(this.wrongGuesses.slice());
         this.guessesLeft = 7;

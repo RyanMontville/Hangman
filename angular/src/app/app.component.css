@@ -82,6 +82,11 @@ main {
 .size-30 {
     font-size: 30px;
 }
+
+.btn-green {
+    background-color: green;
+    color: white;
+}
 /**************** Loading Animation **************************/
 .lds-dual-ring {
     display: inline-block;

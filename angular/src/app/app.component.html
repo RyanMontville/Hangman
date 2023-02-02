@@ -28,5 +28,5 @@
   {{ word }}
   <app-gallows></app-gallows>
   <app-keyboard></app-keyboard>
-  
+  <button *ngIf="gameOver" (click)="startNewGame()" class="btn size-30 btn-green" style="display:block; width:170px;margin: 10px auto;">New Game</button>
 </main>
