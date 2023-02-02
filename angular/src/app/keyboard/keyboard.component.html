@@ -1,9 +1,15 @@
 <section id="keyboard">
-    <div *ngIf="gameOver" class="game-over">GAME OVER</div>
+    <div 
+        *ngIf="gameOver" 
+        class="game-over"
+        [ngClass]="letterLeft===0 ? 'green' : 'red'"
+        >{{letterLeft===0 ? 'You Win!' : 'GAME OVER'}}</div>
     <div class="row" *ngFor="let row of keyboard">
-        <button *ngFor="let key of row" (click)="keyClick(key)" [disabled]="checkIfGuessed(key)">{{key}}</button>
+        <button 
+            *ngFor="let key of row" 
+            (click)="keyClick(key)" 
+            [disabled]="checkIfGuessed(key)"
+            class="btn size-30"
+            >{{key}}</button>
     </div>
 </section>
-
-
-

@@ -4,8 +4,29 @@
   <a (click)="startNewGame()" style="cursor: pointer;">Start New Game</a>
   <a href="https://github.com/RyanMontville/Hangman">View the GitHub Repo</a>
 </nav>
+<div id="word-select" *ngIf="word.length<1">
+  <div class="wrapper" *ngIf="!loading">
+    <h3>Get a random word with</h3>
+  <section class="button-group">
+    <button (click)="getWord()" class="btn size-20">Random Length</button>
+    <button (click)="getWordLengthN(3)" class="btn size-20">3 Letters</button>
+    <button (click)="getWordLengthN(4)" class="btn size-20">4 Letters</button>
+    <button (click)="getWordLengthN(5)" class="btn size-20">5 Letters</button>
+    <button (click)="getWordLengthN(6)" class="btn size-20">6 Letters</button>
+    <button (click)="getWordLengthN(7)" class="btn size-20">7 Letters</button>
+    <button (click)="getWordLengthN(8)" class="btn size-20">8 Letters</button>
+    <button (click)="getWordLengthN(9)" class="btn size-20">9 Letters</button>
+    <button (click)="getWordLengthN(10)" class="btn size-20">10 Letters</button>
+  </section>
+</div>
+<div class="loading wrapper" *ngIf="loading">
+  <div class="lds-dual-ring" style="margin: 0 auto"></div>
+</div>
+  
+</div>
 <main>
+  {{ word }}
   <app-gallows></app-gallows>
   <app-keyboard></app-keyboard>
-
+  
 </main>

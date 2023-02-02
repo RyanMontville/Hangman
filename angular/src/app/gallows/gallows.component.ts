@@ -8,15 +8,19 @@ import { GameService } from '../game.service';
 })
 export class GallowsComponent implements OnInit {
 gallows = ["+---+","|   |","|   ","|  ","|  ","|    ","======"];
-lettersToGuess = ["_","_","_","_","_","_","_",];
+lettersToGuess: string[] = [];
 wrongGuesses: string[] = [];
 
 constructor(private gameService: GameService) {}
 
 ngOnInit() {
+  this.gameService.lettersUpdated.subscribe((letters: string[]) => {
+    this.lettersToGuess = letters;
+  });
   this.gameService.wrongGuessesUpdated.subscribe((wrongGuesses: string[]) => {
     this.wrongGuesses = wrongGuesses;
-  })
+  });
+  
 }
 
 }

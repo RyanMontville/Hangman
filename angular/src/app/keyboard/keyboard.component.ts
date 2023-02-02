@@ -4,7 +4,7 @@ import { GameService } from '../game.service';
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.css']
+  styleUrls: ['./keyboard.component.css', '../app.component.css']
 })
 export class KeyboardComponent implements OnInit {
   rowOne = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -12,6 +12,7 @@ export class KeyboardComponent implements OnInit {
   rowThree = ["Z", "X", "C", "V", "B", "N", "M"];
   keyboard = [this.rowOne, this.rowTwo, this.rowThree];
   wrongGuesses: string[] = [];
+  letterLeft = 0;
   gameOver = false;
 
   constructor(private gameService: GameService) {}
@@ -22,11 +23,14 @@ export class KeyboardComponent implements OnInit {
     });
     this.gameService.wrongGuessesUpdated.subscribe((wrongGuesses: string[]) => {
       this.wrongGuesses = wrongGuesses;
+    });
+    this.gameService.lettersLeftToGuess.subscribe(letterLeft => {
+      this.letterLeft = letterLeft;
     })
   }
 
   keyClick(letter: string) {
-    this.gameService.addLetterToWrongGuesses(letter);
+    this.gameService.nextGuess(letter);
   }
 
   checkIfGuessed(letter: string) {
