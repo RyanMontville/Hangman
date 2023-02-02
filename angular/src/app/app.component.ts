@@ -34,8 +34,14 @@ export class AppComponent implements OnInit {
     this.loading = true;
     this.gameService.getAnyWord();
   }
+
   getWordLengthN(num: number) {
     this.loading = true;
     this.gameService.getWordWithLengthN(num);
+  }
+
+  getWordFromCategory(category: string) {
+    this.loading = true;
+    this.gameService.getWordByCategory(category);
   }
 }

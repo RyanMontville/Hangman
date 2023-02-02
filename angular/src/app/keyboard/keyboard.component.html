@@ -3,7 +3,10 @@
         *ngIf="gameOver" 
         class="game-over"
         [ngClass]="letterLeft===0 ? 'green' : 'red'"
-        >{{letterLeft===0 ? 'You Win!' : 'GAME OVER'}}</div>
+        >
+            <h2>{{letterLeft===0 ? 'You Win!' : 'GAME OVER'}}</h2>
+            <p *ngIf="wrongGuesses.length===7">The word was {{wordToGuess}}</p>
+        </div>
     <div class="row" *ngFor="let row of keyboard">
         <button 
             *ngFor="let key of row" 

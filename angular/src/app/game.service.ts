@@ -6,47 +6,65 @@ import { BehaviorSubject, Subject } from "rxjs";
 export class GameService {
     private wordToGuess: string = '';
     wordUpdated = new Subject<string>();
-
     private wrongGuesses: string[] = [];
     wrongGuessesUpdated = new Subject<string[]>();
-
     rightGuesses: string[] = [];
-
     private lettersToGuess: string[] = [];
     lettersUpdated = new Subject<string[]>();
-
     private guessesLeft = 7;
     gameOverStatus = new BehaviorSubject<boolean>(false);
-
     lettersLeftToGuess = new BehaviorSubject<number>(0);
+
+    //word banks
+    private animals: string[] = ["APE","BEAR","CHICKEN","DOG","ELEPHANT","FROG","GRASSHOPPER","HAMSTER","IGUANA","JELLYFISH","KOALA","LEOPARD","MEERKAT","NEWT","OYSTER","PEACOCK","QUAIL","RHINOCEROS","SPHYNX","TIGER","UNICORN","VULTURE","WOLF","YAK","ZEBRA"];
+    private food: string[] = ["AVOCADO","BURRITO","CUPCAKE","DONUT","EGGPLANT","FAJITA","GRAPES","HAMBURGER","JALAPENO","KALE","LASAGNA","MEATBALLS","NACHOS","OMELET","PANCAKES","QUESADILLA","RASPBERRIES","SPAGHETTI","TOFU","WAFFLES","YOGURT","ZUCCHINI"];
+    private dinos: string[] = ["VELOCIRAPTOR","TYRANNOSAURUS","TRICERATOP","STEGOSAURUS","PTERODACTYL","DILOPHOSAURUS","CARNOTAURUS","MASTODON"];
+    private states: string[] = ["ALASKA","ALABAMA","ARIZONA","ARKANSAS","CALIFORNIA","COLORADO","CONNECTICUT","DELAWARE","FLORIDA","GEORGIA","HAWAII","IDAHO","ILLNOIS","INDIANA","IOWA","KANSAS","KENTUCKY","LOUISIANA","MAINE","MARYLAND","MASSACHUSETTS","MICHIGAN","MINNESOTA","MISSISSIPPI","MISSOURI","MONTANA","NEBRASKA","NEVADA","OHIO","OKLAHOMA","OREGON","PENNSYLVANIA","TENNESSEE","TEXAS","UTAH","VERMONT","WASHINGTON","WISCONSIN","WYOMING"];
 
     constructor(private http: HttpClient) { }
 
-    getAnyWord() {
-        this.http.get<string>('https://random-word-api.herokuapp.com/word').subscribe(word => {
-            this.wordToGuess = word[0];
+    setWord(wordToSet: string) {
+        this.wordToGuess = wordToSet;
             this.lettersToGuess = [];
-            for (let i = 0; i < word[0].length; i++) {
+            for (let i = 0; i < wordToSet.length; i++) {
                 this.lettersToGuess.push('_');
             }
             this.wordUpdated.next(this.wordToGuess);
             this.lettersUpdated.next(this.lettersToGuess);
 
             this.lettersLeftToGuess.next(this.wordToGuess.length);
+    }
+
+    getAnyWord() {
+        this.http.get<string>('https://random-word-api.herokuapp.com/word').subscribe(word => {
+            this.setWord(word[0]);
         })
     }
 
     getWordWithLengthN(num: number) {
         this.http.get<string>(`https://random-word-api.herokuapp.com/word?length=${num}`).subscribe(word => {
-            this.wordToGuess = word[0];
-            this.wordUpdated.next(this.wordToGuess);
-            this.lettersToGuess = [];
-            for (let i = 0; i < word[0].length; i++) {
-                this.lettersToGuess.push('_');
-            }
-            this.lettersUpdated.next(this.lettersToGuess.slice());
-            this.lettersLeftToGuess.next(this.wordToGuess.length);
+            this.setWord(word[0]);
         })
+    }
+
+    getWordByCategory(category: string) {
+        if(category==='animal'){
+            let num = Math.floor(Math.random() * 26);
+            this.setWord(this.animals[num]);
+        }
+        if(category==='food'){
+            let num = Math.floor(Math.random() * 23);
+            this.setWord(this.food[num]);
+        }
+        if(category==='dinos'){
+            let num = Math.floor(Math.random() * 9);
+            this.setWord(this.dinos[num]);
+        }
+        if(category==='states'){
+            let num = Math.floor(Math.random() * 40);
+            this.setWord(this.states[num]);
+        }
+        return;
     }
 
     nextGuess(letter: string) {

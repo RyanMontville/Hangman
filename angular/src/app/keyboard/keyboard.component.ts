@@ -14,6 +14,7 @@ export class KeyboardComponent implements OnInit {
   wrongGuesses: string[] = [];
   letterLeft = 0;
   gameOver = false;
+  wordToGuess: string = '';
 
   constructor(private gameService: GameService) {}
 
@@ -26,6 +27,9 @@ export class KeyboardComponent implements OnInit {
     });
     this.gameService.lettersLeftToGuess.subscribe(letterLeft => {
       this.letterLeft = letterLeft;
+    });
+    this.gameService.wordUpdated.subscribe((word: string) => {
+      this.wordToGuess = word;
     })
   }
 
