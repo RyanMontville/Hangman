@@ -7,13 +7,11 @@ The game is now live on GitHub pages. [Click here](https://ryanmontville.github.
 
 ## Version Notes
 #### V 1.0 - Initial upload, Working command line code
-I started coding this over a weekend before creating my GitHub, so I had a working command line program with no commit history to show any of my progress while working on it. This is everything I have coded so far. 
-
-
-One improvement I would like to implement for the next version is possibly adding a difficulty level which would choose a word from a certain word bank depending on the users choice. Another thing I would like to implement is a web interface so I could show off a working demo of the code for anyone interested without them having to download/run the code in a command line. 
+* I started coding this over a weekend before creating my GitHub, so I had a working command line program with no commit history to show any of my progress while working on it. This is everything I have coded so far. 
+*One improvement I would like to implement for the next version is possibly adding a difficulty level which would choose a word from a certain word bank depending on the users choice. Another thing I would like to implement is a web interface so I could show off a working demo of the code for anyone interested without them having to download/run the code in a command line. 
 
 #### V 1.2 - API
--I have created an API to as the first step to making the game playable in a browser.
+*I have created an API to as the first step to making the game playable in a browser.
 
 #### V 2.0 - Angular
--I created a web app for the game using Angular. Since it costs extra money to deploy Java and APIs, I rewrote the game logic in Typescript to it can run within the angular app. I am using a random word API for the word to guess, but I also have a few categories of word banks stored within the app for easier words.
+*I created a web app for the game using Angular. Since it costs extra money to deploy Java and APIs, I rewrote the game logic in Typescript to it can run within the angular app. I am using a random word API for the word to guess, but I also have a few categories of word banks stored within the app for easier words.
