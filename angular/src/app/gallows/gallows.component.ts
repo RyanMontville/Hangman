@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
+import { Gallows } from './gallow.model';
 
 @Component({
   selector: 'app-gallows',
@@ -7,13 +8,7 @@ import { GameService } from '../game.service';
   styleUrls: ['./gallows.component.css']
 })
 export class GallowsComponent implements OnInit {
-lineOne = ["╔","═","═","═","╗"];
-lineTwo = ["║","W","W","║"];
-lineThree = ["║","W","W","O"];
-lineFour = ["║","W","w","/","|","\\"];
-lineFive = ["║","W","W","/","\\"];
-lineSix = ["╩","═","═","═","═","═"]
-gallows = [this.lineOne,this.lineTwo,this.lineThree,this.lineFour,this.lineFive,this.lineSix];
+gallows: Gallows = new Gallows([],[],[],[],[],[]);
 lettersToGuess: string[] = [];
 wrongGuesses: string[] = [];
 wordToGuess: string = '';
@@ -29,6 +24,9 @@ ngOnInit() {
   });
   this.gameService.wordUpdated.subscribe(word => {
     this.wordToGuess = word;
+  });
+  this.gameService.gallowsUpdated.subscribe(gallows => {
+    this.gallows = gallows;
   });
 }
 

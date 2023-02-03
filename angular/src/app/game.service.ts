@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
+import { Gallows } from "./gallows/gallow.model";
 
 @Injectable()
 export class GameService {
@@ -11,9 +12,19 @@ export class GameService {
     rightGuesses: string[] = [];
     private lettersToGuess: string[] = [];
     lettersUpdated = new Subject<string[]>();
-    private guessesLeft = 7;
+    private guessesLeft = 6;
     gameOverStatus = new BehaviorSubject<boolean>(false);
     lettersLeftToGuess = new BehaviorSubject<number>(0);
+    private gallows: Gallows = new Gallows(
+        ["╔","═","═","═","╗"],
+        ["║","W","W","║"],
+        ["║","W","W"],
+        ["║","W","w"],
+        ["║","W","W"],
+        ["╩","═","═","═","═","═"]
+        );
+    public gallowsUpdated = new BehaviorSubject<Gallows>(this.gallows);
+
 
     //word banks
     private animals: string[] = ["APE","BEAR","CHICKEN","DOG","ELEPHANT","FROG","GRASSHOPPER","HAMSTER","IGUANA","JELLYFISH","KOALA","LEOPARD","MEERKAT","NEWT","OYSTER","PEACOCK","QUAIL","RHINOCEROS","SPHYNX","TIGER","UNICORN","VULTURE","WOLF","YAK","ZEBRA"];
@@ -22,6 +33,36 @@ export class GameService {
     private states: string[] = ["ALASKA","ALABAMA","ARIZONA","ARKANSAS","CALIFORNIA","COLORADO","CONNECTICUT","DELAWARE","FLORIDA","GEORGIA","HAWAII","IDAHO","ILLNOIS","INDIANA","IOWA","KANSAS","KENTUCKY","LOUISIANA","MAINE","MARYLAND","MASSACHUSETTS","MICHIGAN","MINNESOTA","MISSISSIPPI","MISSOURI","MONTANA","NEBRASKA","NEVADA","OHIO","OKLAHOMA","OREGON","PENNSYLVANIA","TENNESSEE","TEXAS","UTAH","VERMONT","WASHINGTON","WISCONSIN","WYOMING"];
 
     constructor(private http: HttpClient) { }
+
+    resetGallows() {
+        this.gallows.setLineOne(["╔","═","═","═","╗"]);
+        this.gallows.setLineTwo(["║","W","W","║"]);
+        this.gallows.setLineThree(["║","W","W"]);
+        this.gallows.setLineFour(["║","W","w"]);
+        this.gallows.setLineFive(["║","W","W"]);
+        this.gallows.setLineSix(["╩","═","═","═","═","═"]);
+        this.gallowsUpdated.next(this.gallows);
+    }
+
+    addToGallows(numWrong: number) {
+        if(numWrong === 1){
+            this.gallows.setLineThree(["║","W","W","O"]);
+            this.gallowsUpdated.next(this.gallows);
+        } else if(numWrong === 2) {
+            this.gallows.setLineFour(["║","W","w","/"],);
+            this.gallowsUpdated.next(this.gallows);
+        } else if(numWrong === 3) {
+            this.gallows.setLineFour(["║","W","w","/","|"],);
+            this.gallowsUpdated.next(this.gallows);
+        } else if(numWrong === 4) {
+            this.gallows.setLineFour(["║","W","w","/","|","\\"],);
+            this.gallowsUpdated.next(this.gallows);
+        } else if(numWrong === 5) {
+            this.gallows.setLineFive(["║","W","W","/"])
+        } else if(numWrong === 6) {
+            this.gallows.setLineFive(["║","W","W","/","\\"])
+        }
+    }
 
     setWord(wordToSet: string) {
         this.wordToGuess = wordToSet;
@@ -85,10 +126,12 @@ export class GameService {
                 this.wrongGuesses.push(letter);
                 this.wrongGuessesUpdated.next(this.wrongGuesses);
                 this.guessesLeft--;
+                this.addToGallows(this.wrongGuesses.length);
             } else if (this.guessesLeft === 1) {
                 this.wrongGuesses.push(letter);
                 this.wrongGuessesUpdated.next(this.wrongGuesses);
                 this.guessesLeft--;
+                this.addToGallows(this.wrongGuesses.length);
                 this.gameOverStatus.next(true);
             }
         }
@@ -116,6 +159,7 @@ export class GameService {
         this.wordUpdated.next(this.wordToGuess);
         this.wrongGuesses = [];
         this.wrongGuessesUpdated.next(this.wrongGuesses.slice());
-        this.guessesLeft = 7;
+        this.guessesLeft = 6;
+        this.resetGallows();
     }
 }

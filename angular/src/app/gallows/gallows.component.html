@@ -1,5 +1,20 @@
-    <div *ngFor="let line of gallows; let i = index" class="gallows">
-      <span *ngFor="let char of line" [ngClass]="isW(char)">{{char}}</span>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineOne()" [ngClass]="isW(char)">{{char}}</span>
+    </div>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineTwo()" [ngClass]="isW(char)">{{char}}</span>
+    </div>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineThree()" [ngClass]="isW(char)">{{char}}</span>
+    </div>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineFour()" [ngClass]="isW(char)">{{char}}</span>
+    </div>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineFive()" [ngClass]="isW(char)">{{char}}</span>
+    </div>
+    <div class="gallows">
+      <span *ngFor="let char of gallows.getLineSix()" [ngClass]="isW(char)">{{char}}</span>
     </div>
     <p>Your word to guess:
       <span *ngFor="let letter of lettersToGuess; let i = index">
@@ -11,3 +26,4 @@
         {{letter}}
       </span>
     </p>
+    <p>wrong guesses length = {{wrongGuesses.length}}</p>

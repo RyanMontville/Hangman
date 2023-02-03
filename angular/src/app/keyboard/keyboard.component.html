@@ -5,7 +5,7 @@
         [ngClass]="letterLeft===0 ? 'green' : 'red'"
         >
             <h2>{{letterLeft===0 ? 'You Win!' : 'GAME OVER'}}</h2>
-            <p *ngIf="wrongGuesses.length===7">The word was {{wordToGuess}}</p>
+            <p *ngIf="wrongGuesses.length===6">The word was {{wordToGuess}}</p>
         </div>
     <div class="row" *ngFor="let row of keyboard">
         <button 
