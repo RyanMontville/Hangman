@@ -3,7 +3,7 @@ While thinking about what side projects I wanted to create, I wanted to start co
 
 When a new game is started, a work is picked at random from the word bank, converts the word into an array list of underscores to represent each letter in the word and prints out an ascii gallows. The ascii output is stored in 7 arrays, one for each line of the ascii gallows. It asks the user to guess a letter. If the guess isn't in the word, it adds the guess to a list of wrong guesses and adds a body part to the proper gallows array and prints the gallows again. If the guess is correct, it replaces every underscore in the list were that letter should be. When a game ends, a reset method is called which resets the gallows, clears the list of underscores, picks a new word and random and starts the game over. 
 
-The game is now live on GitHub pages. [Click here](https://ryanmontville.github.io/Hangman/) to view the live demo.
+The game is now live on GitHub pages. [Click here](https://ryanmontville.github.io/Hangman/) to load the app.
 
 ## Version Notes
 #### V 1.0 - Initial upload, Working command line code
