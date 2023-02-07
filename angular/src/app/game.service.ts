@@ -118,7 +118,7 @@ export class GameService {
                 isCorrect = true;
             }
         }
-        if (this.lettersLeftToGuess.getValue() === 0 || !this.lettersToGuess.includes('_')) {
+        if (!this.lettersToGuess.includes('_')) {
             this.gameOverStatus.next(true);
         }
         if (!isCorrect) {
