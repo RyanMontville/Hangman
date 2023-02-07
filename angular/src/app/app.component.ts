@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   word = '';
   loading = false;
   gameOver = false;
+  showMenu: boolean = false;
 
   constructor(private gameService: GameService, private wordService: WordService) {}
 
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   startNewGame() {
+    this.showMenu = false;
     this.loading = false;
     this.gameService.startNewGame();
     this.word = '';

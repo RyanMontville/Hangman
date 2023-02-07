@@ -11,6 +11,7 @@ export class KeyboardComponent implements OnInit {
   rowTwo = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   rowThree = ["Z", "X", "C", "V", "B", "N", "M"];
   keyboard = [this.rowOne, this.rowTwo, this.rowThree];
+  keyboardMobile = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   wrongGuesses: string[] = [];
   letterLeft = 0;
   gameOver = false;

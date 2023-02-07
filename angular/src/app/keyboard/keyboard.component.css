@@ -2,7 +2,7 @@
     position: relative;
     border: 1px solid black;
     border-radius: 10px;
-    width: 500px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 10px;
 }
@@ -10,7 +10,7 @@
 .row {
     display: flex;
     justify-content: center;
-
+    flex-wrap: wrap;
 }
 
 .row button {
@@ -51,4 +51,20 @@
 
 .green {
     color: green;
+}
+@media  (min-width: 871px) {
+    .mobile {
+        display: none;
+    }
+}
+@media (max-width: 870px) {
+    #keyboard {
+        position: relative;
+        left: 5px;
+        right: 5px;
+        padding: 5px;
+    }
+    .desktop {
+        display: none;
+    }
 }

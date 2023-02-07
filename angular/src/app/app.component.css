@@ -5,32 +5,69 @@ h1 {
     font-weight: 900;
     color: #b81f24;
 }
-nav {
-    background-color: #b81f24;
+.navbar {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px;
+    background-color: #b81f24;
+    color: #fff;
     margin: 10px;
     border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     font-family: 'Roboto', sans-serif;
-}
-
-nav a {
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
+    z-index: 3;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
 
+.navbar li {
+    list-style: none;
+    font-size: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.logo,
+.logo a {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    font-size: 18px;
+}
+
+.menu li {
+    padding: 5px 14px;
+
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    font-size: 24px;
+    user-select: none;
+}
+
 #word-select {
     position: absolute;
-    inset: 150px 0 0 0;
+    inset: 0;
     z-index: 2;
     background-color: #e5e5e5;
+    padding-top: 110px;
 }
 
 #word-select .wrapper {
@@ -112,3 +149,40 @@ main {
       transform: rotate(360deg);
     }
   }
+
+  /***************************** media breakpoints ***********************/
+@media only screen and (max-width: 1015px) and (min-width: 870px){
+    .extra-nav-text {
+        display: none;
+    }
+}
+@media (max-width: 870px) {
+    .menu {
+        display: none;
+        position: absolute;
+        background-color: grey;
+        top: 85px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+        padding: 16px 0;
+        border-radius: 10px;
+        z-index: 5;
+    }
+
+    .menu li+li {
+        margin-top: 12px;
+    }
+
+    input[type=checkbox]:checked~.menu {
+        display: block;
+    }
+
+    .hamburger {
+        display: block;
+    }
+    .logo,
+.logo a {
+    font-size: 20px;
+}
+}

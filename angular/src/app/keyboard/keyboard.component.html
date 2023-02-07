@@ -7,9 +7,17 @@
             <h2>{{letterLeft===0 ? 'You Win!' : 'GAME OVER'}}</h2>
             <p *ngIf="wrongGuesses.length===6">The word was {{wordToGuess}}</p>
         </div>
-    <div class="row" *ngFor="let row of keyboard">
+    <div class="row desktop" *ngFor="let row of keyboard">
         <button 
             *ngFor="let key of row" 
+            (click)="keyClick(key)" 
+            [disabled]="checkIfGuessed(key)"
+            class="btn size-30"
+            >{{key}}</button>
+    </div>
+    <div class="row mobile">
+        <button 
+            *ngFor="let key of keyboardMobile"
             (click)="keyClick(key)" 
             [disabled]="checkIfGuessed(key)"
             class="btn size-30"
