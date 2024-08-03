@@ -1,5 +1,5 @@
 .white {
-    color: white;
+    color: var(--main-background);
 }
 
 .gallows span {

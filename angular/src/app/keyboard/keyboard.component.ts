@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-keyboard',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.css', '../app.component.css']
+  styleUrl: './keyboard.component.css'
 })
 export class KeyboardComponent implements OnInit {
   rowOne = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -45,5 +48,4 @@ export class KeyboardComponent implements OnInit {
       return false;
     }
   }
-
 }

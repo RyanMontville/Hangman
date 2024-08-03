@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
-import { Gallows } from "./gallows/gallow.model";
+import { Gallows } from "./gallows/gallows.model";
 
 @Injectable()
 export class GameService {

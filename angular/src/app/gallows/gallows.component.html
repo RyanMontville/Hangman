@@ -1,28 +1,40 @@
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineOne()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineTwo()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineThree()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineFour()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineFive()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <div class="gallows">
-      <span *ngFor="let char of gallows.getLineSix()" [ngClass]="isW(char)">{{char}}</span>
-    </div>
-    <p>Your word to guess:
-      <span *ngFor="let letter of lettersToGuess; let i = index">
-        {{letter}}
-      </span>
-    </p>
-    <p>Wrong guesses:
-      <span *ngFor="let letter of wrongGuesses; let i = index">
-        {{letter}}
-      </span>
-    </p>
+<div class="gallows">
+    @for (char of gallows.getLineOne(); track char) {
+        <span  [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <div class="gallows">
+    @for (char of gallows.getLineTwo(); track char) {
+        <span [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <div class="gallows">
+    @for (char of gallows.getLineThree(); track char) {
+        <span [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <div class="gallows">
+    @for (char of gallows.getLineFour(); track char) {
+        <span [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <div class="gallows">
+    @for (char of gallows.getLineFive(); track char) {
+        <span [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <div class="gallows">
+    @for (char of gallows.getLineSix(); track char) {
+        <span [ngClass]="isW(char)">{{char}}</span>
+    }
+  </div>
+  <p>Your word to guess:
+    @for (letter of lettersToGuess; track letter) {
+        <span>{{letter}}</span>
+    }
+  </p>
+  <p>Wrong guesses:
+    @for (letter of wrongGuesses; track letter) {
+        <span>{{letter}}</span>
+    }
+  </p>
